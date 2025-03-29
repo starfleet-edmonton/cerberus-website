@@ -46,6 +46,6 @@ jobs:
       - name: Build the app artifact for prod
         run: npm run build --prod
       - name: Deploying
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx ng deploy
