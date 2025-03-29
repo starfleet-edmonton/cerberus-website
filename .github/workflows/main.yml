@@ -46,4 +46,4 @@ jobs:
       - name: Build the app artifact for prod
         run: npm run build --prod
       - name: Deploying
-        run: npx ng deploy --cname=cerberus.ggbetawerks.com
+        run: npx ng deploy --cname=cerberus.ggbetawerks.com --name="Deploybot" --email=jonw@ggsoftwerks.com
