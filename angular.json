@@ -92,8 +92,7 @@
           "options": {
             "cname": "cerberus.ggbetawerks.com",
             "name": "Deploybot",
-            "email": "jonw@ggsoftwerks.com",
-            "repo": "https://github.com/starfleet-edmonton/cerberus-website"
+            "email": "jonw@ggsoftwerks.com"
           }
         }
       }
