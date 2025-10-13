@@ -10,6 +10,7 @@ import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
 import { definePreset, palette } from '@primeuix/themes';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 const AuraPurple = definePreset(Aura, {
   semantic: {
@@ -22,11 +23,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: AuraPurple,
-      },
-    }),
+    providePrimeNG({ theme: { preset: AuraPurple, options: { darkModeSelector: '.app-dark' } } }),
   ],
 };
