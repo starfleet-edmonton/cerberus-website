@@ -10,10 +10,11 @@ import {
 } from './services/contentful.service';
 import { ContentfulRichText } from './components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, ContentfulRichText, CommonModule],
+  imports: [RouterOutlet, ButtonModule, ContentfulRichText, CommonModule, CardModule],
   providers: [ContentfulService],
   templateUrl: './app.html',
   styleUrl: './app.scss',

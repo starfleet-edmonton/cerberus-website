@@ -337,7 +337,7 @@
 @if (blogEntriesResource.asReadonly().isLoading()) {
 <div>Loading...</div>
 }@else{
-<div *ngFor="let entry of blogEntriesResource.asReadonly().value()">
+<!-- <div *ngFor="let entry of blogEntriesResource.asReadonly().value()">
   <h1>{{ entry.fields.title }}</h1>
   <h4>{{ entry.fields.publishDate }}</h4>
 
@@ -345,6 +345,21 @@
   <div>
     <app-contentful-rich-text [document]="entry.fields.entryContext"></app-contentful-rich-text>
   </div>
-  <!-- <pre>{{ entry | json }}</pre> -->
-</div>
+   <pre>{{ entry | json }}</pre>
+</div> -->
+
+<!-- <ng-content *ngFor="let entry of blogEntriesResource.asReadonly().value()"> -->
+@for (entry of blogEntriesResource.asReadonly().value(); track $index) {
+<p-card [style]="{ maxWidth: '50rem', overflow: 'hidden' }">
+  <ng-template #title> {{ entry.fields.title }} </ng-template>
+  <ng-template #subtitle> {{ entry.fields.publishDate }} </ng-template>
+
+  <div>{{ entry.fields.overview }}</div>
+  <div>
+    <app-contentful-rich-text [document]="entry.fields.entryContext"></app-contentful-rich-text>
+  </div>
+</p-card>
+<br />
+}
+<!-- </ng-content> -->
 }
