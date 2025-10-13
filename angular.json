@@ -85,7 +85,9 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "name": "Automated Deployment",
+          "email": "jonw@ggsoftwerks.com"
         }
       }
     }
