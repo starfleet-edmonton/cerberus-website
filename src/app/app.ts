@@ -1,5 +1,5 @@
 import { Component, Renderer2, resource, signal, ViewChild } from '@angular/core';
-import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 import { Entry } from 'contentful';
@@ -20,7 +20,6 @@ import { AppFooter } from './components/app.footer';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     ButtonModule,
     ContentfulRichText,
     CommonModule,
