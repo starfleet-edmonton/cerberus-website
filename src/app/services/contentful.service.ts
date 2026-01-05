@@ -1,12 +1,7 @@
 // ./src/app/contentful.service.ts
 import { Injectable } from '@angular/core';
 // import Contentful createClient and type for `Entry`
-import {
-  createClient,
-  EntriesQueries,
-  Entry,
-  EntryFieldTypes,
-} from 'contentful';
+import { createClient, EntriesQueries, Entry, EntryFieldTypes } from 'contentful';
 
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
@@ -57,9 +52,7 @@ export class ContentfulService {
       'fields.publishDate[lt]': [currentDate.toISOString()],
     };
 
-    let extendedBaseQuery:
-      | EntriesQueries<BlogEntrySkeleton, undefined>
-      | undefined = {
+    let extendedBaseQuery: EntriesQueries<BlogEntrySkeleton, undefined> | undefined = {
       content_type: 'blogPost',
       order: ['-fields.publishDate'],
       limit: 10,
@@ -69,9 +62,13 @@ export class ContentfulService {
     let finalBaseQuery = Object.assign(baseQuery as object, extendedBaseQuery);
     finalBaseQuery = Object.assign(finalBaseQuery as object, query);
 
-    let x = this.cdaClient
-      .getEntries<BlogEntrySkeleton>(finalBaseQuery)
-      .then((res) => res.items);
+    let x = this.cdaClient.getEntries<BlogEntrySkeleton>(finalBaseQuery).then((res) =>
+      res.items.sort((a, b) => {
+        let dateA = new Date(a.fields.publishDate);
+        let dateB = new Date(b.fields.publishDate);
+        return dateB.getTime() - dateA.getTime();
+      })
+    );
 
     return x;
   }
@@ -81,9 +78,7 @@ export class ContentfulService {
   }
 
   getMemberPageEntries(query?: object): Promise<Entry<MemberPageSkeleton>[]> {
-    return this.cdaClient
-      .getEntries<MemberPageSkeleton>(query)
-      .then((res) => res.items);
+    return this.cdaClient.getEntries<MemberPageSkeleton>(query).then((res) => res.items);
   }
 
   getMemberPageMenus(query?: object): Promise<Entry<MemberPageSkeleton>[]> {
