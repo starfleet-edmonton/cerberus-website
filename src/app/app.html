@@ -20,15 +20,20 @@
 
       @for (entry of blogEntriesResource.asReadonly().value(); track $index) {
       <p-card [style]="{ maxWidth: '50rem', overflow: 'hidden' }">
-        <ng-template #title> {{ entry.fields.title }} </ng-template>
+        <ng-template #title> {{ entry.fields.title }}</ng-template>
         <ng-template #subtitle> {{ entry.fields.publishDate }} </ng-template>
 
         <div>{{ entry.fields.overview }}</div>
+        @if (isVisible(entry.sys.id)) {
         <div>
           <app-contentful-rich-text
             [document]="entry.fields.entryContext"
           ></app-contentful-rich-text>
         </div>
+        <a (click)="toggleVisibility(entry.sys.id)" style="float: right">...Hide</a>
+        }@else{ @if(entry.fields.entryContext) {
+        <a (click)="toggleVisibility(entry.sys.id)" style="float: right">More...</a>
+        } }
       </p-card>
       <br />
       } }

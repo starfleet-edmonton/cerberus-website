@@ -36,6 +36,16 @@ import { AppFooter } from './components/app.footer';
 export class App {
   protected readonly title = signal('cerberus-website');
 
+  blogVisibility: { [id: string]: boolean } = {};
+
+  isVisible(blogId: string): boolean {
+    return this.blogVisibility[blogId] || false;
+  }
+
+  toggleVisibility(blogId: string): void {
+    this.blogVisibility[blogId] = !this.isVisible(blogId);
+  }
+
   blogEntries: Entry<BlogEntrySkeleton>[] = [];
   memberPages: Entry<MemberPageSkeleton>[] = [];
 
