@@ -25,29 +25,31 @@ export class ContentfulRichText {
         return '<img src="' + file.url + '" alt="' + title + '" />';
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-        return (
-          'Block Embedded Entry <pre>' +
-          //       this.jsonPipe.transform(node.data['target']) +
-          '</pre>'
-        );
+        return '';
+        // return (
+        //   'Block Embedded Entry <pre>' +
+        //   //       this.jsonPipe.transform(node.data['target']) +
+        //   '</pre>'
+        // );
       },
       [INLINES.ASSET_HYPERLINK]: (node) => {
         const { title, file } = node.data['target'].fields;
         return '<a href= "' + file.url + '" target="_blank">' + title + '</a>';
       },
       [INLINES.ENTRY_HYPERLINK]: (node) => {
-        return (
-          'Entry Hyperlink <pre>' +
-          //     this.jsonPipe.transform(node.data['target']) +
-          '</pre>'
-        );
+        return '';
+        // const sys = node.data['target'].sys;
+        // const { title } = node.data['target'].fields;
+        // // TODO need to setup a default page that will display using the sys.id field
+        // return 'Entry Hyperlink' + title + ' <pre>' + this.jsonPipe.transform(sys) + '</pre>';
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        return (
-          'Inline Embedded Entry <pre>' +
-          //   this.jsonPipe.transform(node.data['target']) +
-          '</pre>'
-        );
+        return '';
+        // return (
+        //   'Inline Embedded Entry <pre>' +
+        //   //   this.jsonPipe.transform(node.data['target']) +
+        //   '</pre>'
+        // );
       },
     },
   };
