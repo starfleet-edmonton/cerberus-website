@@ -21,7 +21,7 @@
       @for (entry of blogEntriesResource.asReadonly().value(); track $index) {
       <p-card [style]="{ maxWidth: '50rem', overflow: 'hidden' }">
         <ng-template #title> {{ entry.fields.title }}</ng-template>
-        <ng-template #subtitle> {{ entry.fields.publishDate }} </ng-template>
+        <ng-template #subtitle> {{ entry.fields.publishDate | ctDate }} </ng-template>
 
         @if (isVisible(entry.sys.id)) {
         <div>

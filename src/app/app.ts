@@ -16,6 +16,7 @@ import { AppSidebar } from './components/app.sidebar';
 import { AppTopbar } from './components/app.topbar';
 import { LayoutService } from './services/layout.service';
 import { AppFooter } from './components/app.footer';
+import { CtDatePipe } from './pipes/contentful-date.pipe';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ import { AppFooter } from './components/app.footer';
     AppSidebar,
     AppTopbar,
     AppFooter,
+    CtDatePipe,
   ],
   providers: [ContentfulService, LayoutService],
   templateUrl: './app.html',
