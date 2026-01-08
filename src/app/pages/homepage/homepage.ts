@@ -1,16 +1,16 @@
 import { Component, resource } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { ContentfulRichText } from '../../layout/components/contentful-rich-text.component';
+import { ContentfulRichText } from '../../components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
-import { CtDatePipe } from '../../layout/pipes/contentful-date.pipe';
+import { CtDatePipe } from '../../pipes/contentful-date.pipe';
 import { Entry } from 'contentful';
 import {
   BlogEntrySkeleton,
   ContentfulService,
   MemberPageSkeleton,
-} from '../../layout/services/contentful.service';
+} from '../../services/contentful.service';
 
 @Component({
   selector: 'app-homepage',
