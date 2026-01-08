@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { cbFormatDate, cbIsDate, cbParseIsoDate } from '../date-functions';
+import { cbFormatDate, cbIsDate, cbParseIsoDate } from '../../date-functions';
 
 @Pipe({ name: 'ctDate' })
 export class CtDatePipe implements PipeTransform {
