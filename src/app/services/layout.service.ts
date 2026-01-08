@@ -28,7 +28,7 @@ interface MenuChangeEvent {
 export class LayoutService {
   _config: layoutConfig = {
     preset: 'Aura',
-    primary: 'indigo',
+    primary: 'rose',
     surface: null,
     //darkTheme: false,
     darkTheme: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
