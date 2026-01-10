@@ -6,15 +6,37 @@ import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { Entry } from 'contentful';
 import { PageSkeleton, ContentfulService } from '../../services/contentful.service';
+import { FormsModule } from '@angular/forms';
+import { FluidModule } from 'primeng/fluid';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-homepage',
-  imports: [ButtonModule, ContentfulRichText, CommonModule, RouterModule, CardModule],
+  imports: [
+    ButtonModule,
+    ContentfulRichText,
+    RouterModule,
+    CardModule,
+    CommonModule,
+    FormsModule,
+    InputTextModule,
+    InputGroupModule,
+    FluidModule,
+    InputGroupAddonModule,
+    TextareaModule,
+  ],
   providers: [ContentfulService],
   templateUrl: './contact-us.html',
 })
 export class ContactUsComponent {
   pageContent: Entry<PageSkeleton> | null = null;
+
+  submitted() {
+    alert('Your message has been sent.');
+  }
 
   constructor(private contentfulService: ContentfulService) {
     this.contentfulService.getOnePage('4llZBfChWrk19FKRoLPIJN').then((entry) => {

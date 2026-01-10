@@ -1,4 +1,25 @@
 <h1>{{ pageContent?.fields?.pageTitle }}</h1>
+<p-fluid class="flex flex-col md:flex-row gap-8">
+  <div class="md:w-1/2">
+    <div class="card flex flex-col gap-4">
+      <form action="https://formspree.io/f/xjggbjga" method="POST" (submit)="submitted()">
+        <input pInputText id="name" name="name" type="text" placeholder="Your Name:" />
+
+        <input pInputText id="email" name="email" type="text" placeholder="Your Email:" />
+
+        <textarea
+          pTextarea
+          name="message"
+          placeholder="Your Message"
+          [autoResize]="true"
+          rows="5"
+        ></textarea>
+
+        <button label="Send" name="submit" type="submit" pButton></button>
+      </form>
+    </div>
+  </div>
+</p-fluid>
 <div>
   <app-contentful-rich-text
     [document]="pageContent?.fields?.pageContent"
