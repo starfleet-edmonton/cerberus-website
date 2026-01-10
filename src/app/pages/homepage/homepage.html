@@ -1,4 +1,15 @@
-Home page text @if (blogEntriesResource.asReadonly().isLoading()) {
+<h1 class="text-center">USS Cerberus</h1>
+<picture>
+  <source srcset="logo_square_400.png" media="(max-width: 500px)" />
+  <source srcset="logo_square.png" />
+  <img
+    src="logo_square.png"
+    alt="USS Cerberus Logo"
+    style="max-width: 100%; margin-left: auto; margin-right: auto"
+  />
+</picture>
+
+@if (false){ @if (blogEntriesResource.asReadonly().isLoading()) {
 <div>Loading...</div>
 }@else{
 <!-- <div *ngFor="let entry of blogEntriesResource.asReadonly().value()">
@@ -29,4 +40,4 @@ Home page text @if (blogEntriesResource.asReadonly().isLoading()) {
   } }
 </p-card>
 <br />
-} }
+} } }

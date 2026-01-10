@@ -34,6 +34,14 @@ export interface MemberPageSkeleton {
   };
 }
 
+export interface PageSkeleton {
+  contentTypeId: 'GenericPage';
+  fields: {
+    pageTitle: EntryFieldTypes.Text;
+    pageContent: EntryFieldTypes.RichText;
+  };
+}
+
 @Injectable()
 export class ContentfulService {
   private cdaClient = createClient({
@@ -75,6 +83,10 @@ export class ContentfulService {
 
   getOne(id: string) {
     return this.cdaClient.getEntry<BlogEntrySkeleton>(id);
+  }
+
+  getOnePage(id: string) {
+    return this.cdaClient.getEntry<PageSkeleton>(id);
   }
 
   getMemberPageEntries(query?: object): Promise<Entry<MemberPageSkeleton>[]> {

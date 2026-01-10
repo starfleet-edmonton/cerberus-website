@@ -20,7 +20,7 @@ import { LayoutService } from '../services/layout.service';
       </button>
       <a class="layout-topbar-logo" routerLink="/">
         <img
-          src="logo_square.png"
+          src="logo_square_48.png"
           alt="logo"
           width="32"
           height="32"
@@ -43,7 +43,7 @@ import { LayoutService } from '../services/layout.service';
         </button>
         <app-configurator />
         <div class="relative">
-          <button
+          <!-- <button
             class="layout-topbar-action layout-topbar-action-highlight"
             pStyleClass="@next"
             enterFromClass="hidden"
@@ -53,12 +53,12 @@ import { LayoutService } from '../services/layout.service';
             [hideOnOutsideClick]="true"
           >
             <i class="pi pi-palette"></i>
-          </button>
+          </button> -->
           <app-configurator />
         </div>
       </div>
 
-      <button
+      <!-- <button
         class="layout-topbar-menu-button layout-topbar-action"
         pStyleClass="@next"
         enterFromClass="hidden"
@@ -86,6 +86,7 @@ import { LayoutService } from '../services/layout.service';
           </button>
         </div>
       </div>
+    </div> -->
     </div>
   </div>`,
 })
