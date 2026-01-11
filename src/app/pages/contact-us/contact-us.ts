@@ -14,7 +14,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-  selector: 'app-homepage',
+  selector: 'app-contact-us',
   imports: [
     ButtonModule,
     ContentfulRichText,
