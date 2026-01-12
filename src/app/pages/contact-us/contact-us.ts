@@ -35,10 +35,6 @@ import { PageSkeleton } from '../../models/contentful.model';
 export class ContactUsComponent {
   pageContent: Entry<PageSkeleton> | null = null;
 
-  submitted() {
-    alert('Your message has been sent.');
-  }
-
   constructor(private contentfulService: ContentfulService) {
     this.contentfulService.getOnePage('4llZBfChWrk19FKRoLPIJN').then((entry) => {
       this.pageContent = entry;
