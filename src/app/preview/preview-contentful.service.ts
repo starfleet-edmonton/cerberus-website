@@ -8,7 +8,7 @@ import { PageSkeleton } from '../models/contentful.model';
 // SET YOU OWN CONFIG here
 const CONFIG = {
   space: 'hj4b9t39v9vm',
-  accessToken: 'GJ-aJFpiysmIrJ_usWlWSMh4aMUlGP1tLiRbXG2rMgk',
+  accessToken: '4CNn-N7aeQsAjxO6Fi9Sc4yXM22VXYsIYhVrMcN0cMQ',
   hostname: 'preview.contentful.com',
 
   contentTypeIds: {
