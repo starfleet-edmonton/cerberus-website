@@ -66,10 +66,16 @@ export class AppMenu {
             routerLink: ['/pages/officers'],
           },
           {
+            label: 'Upcoming Events',
+            icon: 'pi pi-fw pi-calendar',
+            routerLink: ['/pages/events'],
+          },
+          {
             label: 'Contact Us',
             icon: 'pi pi-fw pi-envelope',
             routerLink: ['/pages/contact-us'],
           },
+
           // {
           //   label: 'Auth',
           //   icon: 'pi pi-fw pi-user',

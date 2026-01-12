@@ -25,3 +25,14 @@ export interface PageSkeleton {
     pageContent: EntryFieldTypes.RichText;
   };
 }
+
+export interface PublicEventSkeleton {
+  contentTypeId: 'publicEvent';
+  fields: {
+    title: EntryFieldTypes.Text;
+    description: EntryFieldTypes.Text;
+    dateAndTime: EntryFieldTypes.Date;
+    address: EntryFieldTypes.Text;
+    location: EntryFieldTypes.Location;
+  };
+}

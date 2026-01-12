@@ -2,7 +2,12 @@
 import { Injectable } from '@angular/core';
 // import Contentful createClient and type for `Entry`
 import { createClient, EntriesQueries, Entry, EntryFieldTypes } from 'contentful';
-import { BlogEntrySkeleton, MemberPageSkeleton, PageSkeleton } from '../models/contentful.model';
+import {
+  BlogEntrySkeleton,
+  MemberPageSkeleton,
+  PageSkeleton,
+  PublicEventSkeleton,
+} from '../models/contentful.model';
 
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
@@ -14,6 +19,7 @@ const CONFIG = {
     blogEntry: 'blogPost',
     memberPage: 'memberArea',
     page: 'page',
+    publicEvent: 'publicEvent',
   },
 };
 
@@ -60,10 +66,6 @@ export class ContentfulService {
     return this.cdaClient.getEntry<BlogEntrySkeleton>(id);
   }
 
-  getOnePage(id: string) {
-    return this.cdaClient.getEntry<PageSkeleton>(id);
-  }
-
   getMemberPageEntries(query?: object): Promise<Entry<MemberPageSkeleton>[]> {
     return this.cdaClient.getEntries<MemberPageSkeleton>(query).then((res) => res.items);
   }
@@ -79,5 +81,36 @@ export class ContentfulService {
         )
       )
       .then((res) => res.items);
+  }
+
+  getOnePage(id: string) {
+    return this.cdaClient.getEntry<PageSkeleton>(id);
+  }
+  getPublicEvents(query?: object): Promise<Entry<PublicEventSkeleton>[]> {
+    let yesterday = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+
+    let baseQuery = {
+      'fields.dateAndTime[gt]': [yesterday.toISOString()],
+    };
+
+    let extendedBaseQuery: EntriesQueries<PublicEventSkeleton, undefined> | undefined = {
+      content_type: 'publicEvent',
+      order: ['fields.dateAndTime'],
+      limit: 10,
+      skip: 0,
+    };
+
+    let finalBaseQuery = Object.assign(baseQuery as object, extendedBaseQuery);
+    finalBaseQuery = Object.assign(finalBaseQuery as object, query);
+
+    let x = this.cdaClient.getEntries<PublicEventSkeleton>(finalBaseQuery).then((res) =>
+      res.items.sort((a, b) => {
+        let dateA = new Date(a.fields.dateAndTime);
+        let dateB = new Date(b.fields.dateAndTime);
+        return dateA.getTime() - dateB.getTime();
+      })
+    );
+
+    return x;
   }
 }
