@@ -12,6 +12,7 @@ export const routes: Routes = [
       //{ path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
       //{ path: 'documentation', component: Documentation },
       { path: 'pages', loadChildren: () => import('./pages/pages.routes') },
+      { path: 'preview', loadChildren: () => import('./preview/preview.routes') },
     ],
   },
   //{ path: 'landing', component: Landing },

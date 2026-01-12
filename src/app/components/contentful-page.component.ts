@@ -1,7 +1,8 @@
 import { Entry } from 'contentful';
-import { ContentfulService, PageSkeleton } from '../services/contentful.service';
+import { ContentfulService } from '../services/contentful.service';
 import { Component, Input } from '@angular/core';
 import { ContentfulRichText } from './contentful-rich-text.component';
+import { PageSkeleton } from '../models/contentful.model';
 
 @Component({
   selector: 'app-page-display',

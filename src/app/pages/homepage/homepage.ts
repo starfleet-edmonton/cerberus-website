@@ -6,11 +6,8 @@ import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { CtDatePipe } from '../../pipes/contentful-date.pipe';
 import { Entry } from 'contentful';
-import {
-  BlogEntrySkeleton,
-  ContentfulService,
-  MemberPageSkeleton,
-} from '../../services/contentful.service';
+import { ContentfulService } from '../../services/contentful.service';
+import { BlogEntrySkeleton, MemberPageSkeleton } from '../../models/contentful.model';
 
 @Component({
   selector: 'app-homepage',

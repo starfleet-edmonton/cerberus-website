@@ -2,20 +2,20 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ContentfulRichText } from '../../components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { Entry } from 'contentful';
-import { ContentfulService } from '../../services/contentful.service';
 import { FormsModule } from '@angular/forms';
 import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TextareaModule } from 'primeng/textarea';
+import { PreviewContentfulService } from '../preview-contentful.service';
 import { PageSkeleton } from '../../models/contentful.model';
 
 @Component({
-  selector: 'app-contact-us',
+  selector: 'app-preview-page',
   imports: [
     ButtonModule,
     ContentfulRichText,
@@ -29,19 +29,20 @@ import { PageSkeleton } from '../../models/contentful.model';
     InputGroupAddonModule,
     TextareaModule,
   ],
-  providers: [ContentfulService],
-  templateUrl: './contact-us.html',
+  providers: [PreviewContentfulService],
+  templateUrl: './page.html',
 })
-export class ContactUsComponent {
+export class PreviewPageComponent {
   pageContent: Entry<PageSkeleton> | null = null;
 
-  submitted() {
-    alert('Your message has been sent.');
-  }
-
-  constructor(private contentfulService: ContentfulService) {
-    this.contentfulService.getOnePage('4llZBfChWrk19FKRoLPIJN').then((entry) => {
-      this.pageContent = entry;
+  constructor(
+    private contentfulService: PreviewContentfulService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
+      this.contentfulService.getOnePage(params['pageId']).then((entry) => {
+        this.pageContent = entry;
+      });
     });
   }
 }

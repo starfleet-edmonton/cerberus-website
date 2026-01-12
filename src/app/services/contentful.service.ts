@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 // import Contentful createClient and type for `Entry`
 import { createClient, EntriesQueries, Entry, EntryFieldTypes } from 'contentful';
+import { BlogEntrySkeleton, MemberPageSkeleton, PageSkeleton } from '../models/contentful.model';
 
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
@@ -15,32 +16,6 @@ const CONFIG = {
     page: 'page',
   },
 };
-
-export interface BlogEntrySkeleton {
-  contentTypeId: 'blogPost';
-  fields: {
-    title: EntryFieldTypes.Text;
-    publishDate: EntryFieldTypes.Date;
-    overview: EntryFieldTypes.Text;
-    entryContext: EntryFieldTypes.RichText;
-  };
-}
-
-export interface MemberPageSkeleton {
-  contentTypeId: 'memberArea';
-  fields: {
-    pageTitle: EntryFieldTypes.Text;
-    pageContent: EntryFieldTypes.RichText;
-  };
-}
-
-export interface PageSkeleton {
-  contentTypeId: 'GenericPage';
-  fields: {
-    pageTitle: EntryFieldTypes.Text;
-    pageContent: EntryFieldTypes.RichText;
-  };
-}
 
 @Injectable()
 export class ContentfulService {
