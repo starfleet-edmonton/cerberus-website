@@ -21,6 +21,7 @@ export class PreviewContentfulService {
   private cdaClient = createClient({
     space: CONFIG.space,
     accessToken: CONFIG.accessToken,
+    host: CONFIG.hostname,
     environment: 'master',
   });
 
