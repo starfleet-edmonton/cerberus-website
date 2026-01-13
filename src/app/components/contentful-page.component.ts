@@ -1,6 +1,6 @@
 import { Entry } from 'contentful';
 import { ContentfulService } from '../services/contentful.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, resource } from '@angular/core';
 import { ContentfulRichText } from './contentful-rich-text.component';
 import { PageSkeleton } from '../models/contentful.model';
 
@@ -8,12 +8,18 @@ import { PageSkeleton } from '../models/contentful.model';
   selector: 'app-page-display',
   imports: [ContentfulRichText],
   providers: [ContentfulService],
-  template: `<h1>{{ pageContent?.fields?.pageTitle }}</h1>
+  template: `
+    @if(pageContentResource.asReadonly().isLoading()){
+    <div>Loading...</div>
+    } @else {
     <div>
+      <h1>{{ pageContentResource.asReadonly().value()?.fields?.pageTitle }}</h1>
       <app-contentful-rich-text
-        [document]="pageContent?.fields?.pageContent"
+        [document]="pageContentResource.asReadonly().value()?.fields?.pageContent"
       ></app-contentful-rich-text>
-    </div>`,
+    </div>
+    }
+  `,
 })
 export class PageDisplayComponent {
   private _pageId: string = '';
@@ -24,15 +30,13 @@ export class PageDisplayComponent {
   }
   set pageId(value: string) {
     this._pageId = value;
-    this.contentfulService.getOnePage(value).then((entry) => {
-      this.pageContent = entry;
-    });
   }
   pageContent: Entry<PageSkeleton> | null = null;
 
-  submitted() {
-    alert('Your message has been sent.');
-  }
+  pageContentResource = resource({
+    loader: () => this.contentfulService.getOnePage(this.pageId),
+    params: () => ({ pageId: this.pageId }),
+  });
 
   constructor(private contentfulService: ContentfulService) {}
 }
