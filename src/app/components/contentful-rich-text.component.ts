@@ -1,16 +1,15 @@
 import { JsonPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { documentToHtmlString, Options } from '@contentful/rich-text-html-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 
 @Component({
   selector: 'app-contentful-rich-text',
-  //template: `<div></div>`,
-  template: `<div [innerHTML]="toHtml(document)"></div>`,
+  template: `<div [innerHTML]="toHtml(document())"></div>`,
   standalone: true,
 })
 export class ContentfulRichText {
-  @Input() document: Partial<Document> | undefined;
+  public document = input<Partial<Document> | undefined>(undefined);
   jsonPipe: JsonPipe = new JsonPipe();
 
   // Instructions for adjusting the renderNodes here

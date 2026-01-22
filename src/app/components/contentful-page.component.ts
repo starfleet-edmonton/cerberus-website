@@ -1,8 +1,6 @@
-import { Entry } from 'contentful';
 import { ContentfulService } from '../services/contentful.service';
-import { Component, Input, resource } from '@angular/core';
+import { Component, input, resource } from '@angular/core';
 import { ContentfulRichText } from './contentful-rich-text.component';
-import { PageSkeleton } from '../models/contentful.model';
 
 @Component({
   selector: 'app-page-display',
@@ -25,20 +23,11 @@ import { PageSkeleton } from '../models/contentful.model';
   `,
 })
 export class PageDisplayComponent {
-  private _pageId: string = '';
-
-  @Input()
-  get pageId(): string {
-    return this._pageId;
-  }
-  set pageId(value: string) {
-    this._pageId = value;
-  }
-  pageContent: Entry<PageSkeleton> | null = null;
+  public pageId = input<string>('');
 
   pageContentResource = resource({
-    loader: () => this.contentfulService.getOnePage(this.pageId),
-    params: () => ({ pageId: this.pageId }),
+    loader: () => this.contentfulService.getOnePage(this.pageId()),
+    params: () => ({ pageId: this.pageId() }),
   });
 
   constructor(private contentfulService: ContentfulService) {}
