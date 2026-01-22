@@ -1,27 +1,11 @@
 @if (eventEntriesResource.asReadonly().isLoading()) {
-<div>Loading...</div>
-}@else{ @if(eventEntriesResource.asReadonly().value().length > 0){ @for (entry of
-eventEntriesResource.asReadonly().value(); track $index) {
-<p-card [style]="{ maxWidth: '50rem', overflow: 'hidden' }">
-  <ng-template #title> {{ entry.fields.title }}</ng-template>
-  <ng-template #subtitle> {{ entry.fields.dateAndTime | ctDate }} </ng-template>
-  <div>{{ entry.fields.description }}</div>
-  @if (entry.fields.address) {
-  <div>Address: {{ entry.fields.address }}</div>
-  } @if(entry.fields.location){
-  <div>
-    <a
-      target="_blank"
-      href="https://maps.google.com/?q={{ entry.fields.location.lat }},{{
-        entry.fields.location.lon
-      }}"
-      >Google Maps</a
-    >
-  </div>
+  <div>Loading...</div>
+} @else {
+  @if (eventEntriesResource.asReadonly().value().length > 0) {
+    @for (entry of eventEntriesResource.asReadonly().value(); track $index) {
+      <app-event-display [entry]="entry"></app-event-display>
+    }
+  } @else {
+    <div>No upcoming events.</div>
   }
-</p-card>
-<br />
-
-} } @else {
-<div>No upcoming events.</div>
-} }
+}

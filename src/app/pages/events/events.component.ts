@@ -1,15 +1,13 @@
 import { Component, resource } from '@angular/core';
-import { PageDisplayComponent } from '../../components/contentful-page.component';
 import { ContentfulService } from '../../services/contentful.service';
 import { CommonModule } from '@angular/common';
 import { PublicEventSkeleton } from '../../models/contentful.model';
 import { Entry } from 'contentful';
-import { CardModule } from 'primeng/card';
-import { CtDatePipe } from '../../pipes/contentful-date.pipe';
+import { EventDisplayComponent } from '../../components/event-display.component';
 
 @Component({
   selector: 'app-events',
-  imports: [CommonModule, CardModule, CtDatePipe],
+  imports: [CommonModule, EventDisplayComponent],
   providers: [ContentfulService],
   templateUrl: './events.html',
 })

@@ -56,7 +56,7 @@ export class ContentfulService {
         let dateA = new Date(a.fields.publishDate);
         let dateB = new Date(b.fields.publishDate);
         return dateB.getTime() - dateA.getTime();
-      })
+      }),
     );
 
     return x;
@@ -77,8 +77,8 @@ export class ContentfulService {
           {
             'metadata.tags.sys.id[all]': ['menu'],
           },
-          query
-        )
+          query,
+        ),
       )
       .then((res) => res.items);
   }
@@ -87,10 +87,10 @@ export class ContentfulService {
     return this.cdaClient.getEntry<PageSkeleton>(id);
   }
   getPublicEvents(query?: object): Promise<Entry<PublicEventSkeleton>[]> {
-    let yesterday = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+    let lastWeek = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
 
     let baseQuery = {
-      'fields.dateAndTime[gt]': [yesterday.toISOString()],
+      'fields.dateAndTime[gt]': [lastWeek.toISOString()],
     };
 
     let extendedBaseQuery: EntriesQueries<PublicEventSkeleton, undefined> | undefined = {
@@ -108,7 +108,7 @@ export class ContentfulService {
         let dateA = new Date(a.fields.dateAndTime);
         let dateB = new Date(b.fields.dateAndTime);
         return dateA.getTime() - dateB.getTime();
-      })
+      }),
     );
 
     return x;

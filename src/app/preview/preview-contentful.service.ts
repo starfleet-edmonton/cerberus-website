@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 // import Contentful createClient and type for `Entry`
 import { createClient, EntriesQueries, Entry, EntryFieldTypes } from 'contentful';
-import { PageSkeleton } from '../models/contentful.model';
+import { PageSkeleton, PublicEventSkeleton } from '../models/contentful.model';
 
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
@@ -29,5 +29,9 @@ export class PreviewContentfulService {
 
   getOnePage(id: string) {
     return this.cdaClient.getEntry<PageSkeleton>(id);
+  }
+
+  getOneEvent(id: string) {
+    return this.cdaClient.getEntry<PublicEventSkeleton>(id);
   }
 }
