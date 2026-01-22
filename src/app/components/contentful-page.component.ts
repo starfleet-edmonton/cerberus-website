@@ -9,15 +9,18 @@ import { PageSkeleton } from '../models/contentful.model';
   imports: [ContentfulRichText],
   providers: [ContentfulService],
   template: `
-    @if(pageContentResource.asReadonly().isLoading()){
-    <div>Loading...</div>
+    @if (pageContentResource.asReadonly().isLoading()) {
+      <div>Loading...</div>
     } @else {
-    <div>
-      <h1>{{ pageContentResource.asReadonly().value()?.fields?.pageTitle }}</h1>
-      <app-contentful-rich-text
-        [document]="pageContentResource.asReadonly().value()?.fields?.pageContent"
-      ></app-contentful-rich-text>
-    </div>
+      <div>
+        <h1>{{ pageContentResource.asReadonly().value()?.fields?.pageTitle }}</h1>
+        <ng-content select="before"></ng-content>
+        <app-contentful-rich-text
+          [document]="pageContentResource.asReadonly().value()?.fields?.pageContent"
+        ></app-contentful-rich-text>
+        <ng-content select="after"></ng-content>
+        <ng-content></ng-content>
+      </div>
     }
   `,
 })
