@@ -27,6 +27,30 @@ import { PageDisplayComponent } from '../../components/contentful-page.component
     PageDisplayComponent,
   ],
   providers: [],
-  templateUrl: './contact-us.html',
+  template: `
+    <app-page-display pageId="4llZBfChWrk19FKRoLPIJN">
+      <p-fluid class="flex flex-col md:flex-row gap-8" ngProjectAs="before">
+        <div class="md:w-1/2">
+          <div class="card flex flex-col gap-4">
+            <form ngNoForm action="https://formspree.io/f/xjggbjga" method="POST">
+              <input pInputText id="name" name="name" type="text" placeholder="Your Name:" />
+
+              <input pInputText id="email" name="email" type="text" placeholder="Your Email:" />
+
+              <textarea
+                pTextarea
+                name="message"
+                placeholder="Your Message"
+                [autoResize]="true"
+                rows="5"
+              ></textarea>
+
+              <button label="Send" name="submit" type="submit" pButton></button>
+            </form>
+          </div>
+        </div>
+      </p-fluid>
+    </app-page-display>
+  `,
 })
 export class ContactUsComponent {}
