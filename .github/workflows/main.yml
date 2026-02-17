@@ -50,4 +50,4 @@ jobs:
       - name: Deploying
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx ng deploy --name="Automated Deployment" --email="jonw@ggsoftwerks.com" --cname="uss-cerberus.ca
+        run: npx ng deploy --name="Automated Deployment" --email="jonw@ggsoftwerks.com" --cname="uss-cerberus.ca"
