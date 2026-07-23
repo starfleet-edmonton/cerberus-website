@@ -1,4 +1,4 @@
-import { Component, resource } from '@angular/core';
+import { Component, resource, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ContentfulRichText } from '../../components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { BlogEntrySkeleton, MemberPageSkeleton } from '../../models/contentful.m
   selector: 'app-homepage',
   imports: [ButtonModule, ContentfulRichText, CommonModule, RouterModule, CardModule, CtDatePipe],
   providers: [ContentfulService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './homepage.html',
 })
 export class HomePageComponent {

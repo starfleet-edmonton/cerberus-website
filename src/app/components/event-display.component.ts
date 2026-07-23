@@ -1,6 +1,6 @@
 import { Entry } from 'contentful';
 import { PublicEventSkeleton } from '../models/contentful.model';
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CtDatePipe } from '../pipes/contentful-date.pipe';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
   selector: 'app-event-display',
   imports: [CommonModule, CardModule, CtDatePipe],
   providers: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <p-card [style]="{ maxWidth: '50rem', overflow: 'hidden' }">
       <ng-template #title> {{ entry().fields.title }}</ng-template>

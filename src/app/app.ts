@@ -1,4 +1,4 @@
-import { Component, Renderer2, resource, signal, ViewChild } from '@angular/core';
+import { Component, Renderer2, resource, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { LayoutService } from './layout/services/layout.service';
   imports: [ButtonModule, CommonModule, RouterModule, CardModule],
   providers: [LayoutService],
   template: `<router-outlet></router-outlet>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
 })
 export class App {}

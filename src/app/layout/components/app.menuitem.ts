@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
@@ -100,6 +100,7 @@ import { LayoutService } from '../services/layout.service';
       transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
     ]),
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [LayoutService],
 })
 export class AppMenuitem {

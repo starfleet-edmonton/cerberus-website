@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ContentfulRichText } from '../../components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
@@ -30,6 +30,7 @@ import { PageSkeleton } from '../../models/contentful.model';
     TextareaModule,
   ],
   providers: [PreviewContentfulService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './page.html',
 })
 export class PreviewPageComponent {

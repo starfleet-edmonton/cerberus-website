@@ -1,11 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { documentToHtmlString, Options } from '@contentful/rich-text-html-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 
 @Component({
   selector: 'app-contentful-rich-text',
   template: `<div [innerHTML]="toHtml(document())"></div>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class ContentfulRichText {

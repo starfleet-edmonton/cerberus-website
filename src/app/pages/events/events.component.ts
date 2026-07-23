@@ -1,4 +1,4 @@
-import { Component, resource } from '@angular/core';
+import { Component, resource, ChangeDetectionStrategy } from '@angular/core';
 import { ContentfulService } from '../../services/contentful.service';
 import { CommonModule } from '@angular/common';
 import { PublicEventSkeleton } from '../../models/contentful.model';
@@ -9,6 +9,7 @@ import { EventDisplayComponent } from '../../components/event-display.component'
   selector: 'app-events',
   imports: [CommonModule, EventDisplayComponent],
   providers: [ContentfulService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './events.html',
 })
 export class EventsComponent {
