@@ -31,16 +31,18 @@
     "@angular/platform-browser": "^22.0.8",
     "@angular/router": "^22.0.8",
     "@contentful/rich-text-html-renderer": "^17.2.3",
+    "@openng/icons": "^1.0.0",
     "@openng/optimus-ui": "^1.0.0-rc.1",
+    "@openng/optimus-ui-themes": "^1.0.0-rc.1",
     "@tailwindcss/postcss": "^4.1.18",
     "contentful": "^11.12.7",
     "date-fns": "^4.4.0",
+    "firebase": "^12.16.0",
+    "ngx-firebase": "^22.0.1",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.6.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
-    "@openng/icons": "^1.0.0",
-    "@openng/optimus-ui-themes": "^1.0.0-rc.1"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular/build": "^22.0.8",

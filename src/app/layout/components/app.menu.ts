@@ -1,25 +1,97 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '@openng/optimus-ui/api';
 import { AppMenuitem } from './app.menuitem';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [AppMenuitem, RouterModule],
+  imports: [AppMenuitem, RouterModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.Eager,
   template: `<ul class="layout-menu">
-    @for (item of model; track item; let i = $index) { @if (!item.separator) {
-    <li app-menuitem [item]="item" [index]="i" [root]="true"></li>
-    } @if (item.separator) {
-    <li class="menu-separator"></li>
-    } }
-  </ul>`,
+      @for (item of model; track item; let i = $index) {
+        @if (!item.separator) {
+          <li app-menuitem [item]="item" [index]="i" [root]="true"></li>
+        }
+        @if (item.separator) {
+          <li class="menu-separator"></li>
+        }
+      }
+    </ul>
+    <span (click)="doEmailLogin()">Test</span><br /><span (click)="doGoogleLogin()"
+      >Test Google</span
+    ><br />
+    <span (click)="sendResetPasswordEmail()">Send Reset Password Email</span>
+
+    <hr />
+    <pre>{{ authService.user$ | async | json }}</pre> `,
 })
 export class AppMenu {
+  authService: AuthService = inject(AuthService);
+
   model: MenuItem[] = [];
 
+  doEmailLogin() {
+    this.authService.loginWithEmailAndPassword('jonw@ggsoftwerks.com', '').subscribe({
+      next: () => {
+        // Handle successful login
+        debugger;
+      },
+      error: (error) => {
+        // Handle login error
+        debugger;
+      },
+    });
+  }
+
+  doGoogleLogin() {
+    this.authService.loginFromGoogle().subscribe({
+      next: () => {
+        // Handle successful login
+        debugger;
+      },
+      error: (error) => {
+        // Handle login error
+        debugger;
+      },
+    });
+  }
+
+  sendResetPasswordEmail() {
+    // Implement password reset logic here
+    const email = 'jonw@ggsoftwerks.com';
+    this.authService.sendResetPasswordEmail(email).subscribe({
+      next: () => {
+        // Password reset email sent!
+        // ..
+        debugger;
+      },
+      error: (error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        debugger;
+      },
+    });
+  }
+
+  updateProfile() {
+    this.authService
+      .updateProfile('Jane Q. User', 'https://example.com/jane-q-user/profile.jpg')
+      .subscribe({
+        next: () => {
+          // Profile updated!
+          // ...
+        },
+        error: (error) => {
+          // An error occurred
+          // ...
+        },
+      });
+  }
   ngOnInit() {
     this.model = [
       {
