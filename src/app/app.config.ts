@@ -5,11 +5,11 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
+import { provideOptimus } from '@openng/optimus-ui/config';
+import Aura from '@openng/optimus-ui-themes/aura';
 
 import { routes } from './app.routes';
-import { definePreset, palette } from '@primeuix/themes';
+import { definePreset, palette } from '@openng/optimus-ui-themes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 const AuraPurple = definePreset(Aura, {
@@ -25,6 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    providePrimeNG({ theme: { preset: AuraPurple, options: { darkModeSelector: '.app-dark' } } }),
+    provideOptimus({ theme: { preset: AuraPurple, options: { darkModeSelector: '.app-dark' } } }),
   ],
 };

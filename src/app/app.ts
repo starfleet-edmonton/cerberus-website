@@ -1,8 +1,8 @@
 import { Component, Renderer2, resource, signal, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from '@openng/optimus-ui/button';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
+import { CardModule } from '@openng/optimus-ui/card';
 import { filter, Subscription } from 'rxjs';
 import { AppSidebar } from './layout/components/app.sidebar';
 import { AppTopbar } from './layout/components/app.topbar';
