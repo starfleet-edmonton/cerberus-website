@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from '@openng/optimus-ui/button';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CardModule } from 'primeng/card';
+import { CardModule } from '@openng/optimus-ui/card';
 import { FormsModule } from '@angular/forms';
-import { FluidModule } from 'primeng/fluid';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { TextareaModule } from 'primeng/textarea';
+import { FluidModule } from '@openng/optimus-ui/fluid';
+import { InputTextModule } from '@openng/optimus-ui/inputtext';
+import { InputGroupModule } from '@openng/optimus-ui/inputgroup';
+import { InputGroupAddonModule } from '@openng/optimus-ui/inputgroupaddon';
+import { TextareaModule } from '@openng/optimus-ui/textarea';
 import { PageDisplayComponent } from '../../components/contentful-page.component';
 
 @Component({

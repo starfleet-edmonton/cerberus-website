@@ -3,7 +3,7 @@ import { PublicEventSkeleton } from '../models/contentful.model';
 import { Component, input } from '@angular/core';
 import { CtDatePipe } from '../pipes/contentful-date.pipe';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
+import { CardModule } from '@openng/optimus-ui/card';
 
 @Component({
   selector: 'app-event-display',

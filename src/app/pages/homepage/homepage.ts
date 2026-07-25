@@ -1,9 +1,9 @@
 import { Component, resource } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from '@openng/optimus-ui/button';
 import { ContentfulRichText } from '../../components/contentful-rich-text.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CardModule } from 'primeng/card';
+import { CardModule } from '@openng/optimus-ui/card';
 import { CtDatePipe } from '../../pipes/contentful-date.pipe';
 import { Entry } from 'contentful';
 import { ContentfulService } from '../../services/contentful.service';
