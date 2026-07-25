@@ -2,6 +2,6 @@
 
 <div>
   <app-contentful-rich-text
-    [document]="pageContent?.fields?.pageContent"
+    [document]="$safeNavigationMigration(pageContent?.fields?.pageContent)"
   ></app-contentful-rich-text>
 </div>

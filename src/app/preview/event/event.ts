@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -30,6 +30,7 @@ import { EventDisplayComponent } from '../../components/event-display.component'
     EventDisplayComponent,
   ],
   providers: [PreviewContentfulService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<app-event-display [entry]="event"></app-event-display>`,
 })
 export class PreviewEventComponent {

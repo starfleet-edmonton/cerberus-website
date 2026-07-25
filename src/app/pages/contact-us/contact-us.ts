@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -27,6 +27,7 @@ import { PageDisplayComponent } from '../../components/contentful-page.component
     PageDisplayComponent,
   ],
   providers: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <app-page-display pageId="4llZBfChWrk19FKRoLPIJN">
       <p-fluid class="flex flex-col md:flex-row gap-8" ngProjectAs="before">

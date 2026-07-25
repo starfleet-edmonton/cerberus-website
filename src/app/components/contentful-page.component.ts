@@ -1,11 +1,12 @@
 import { ContentfulService } from '../services/contentful.service';
-import { Component, input, resource } from '@angular/core';
+import { Component, input, resource, ChangeDetectionStrategy } from '@angular/core';
 import { ContentfulRichText } from './contentful-rich-text.component';
 
 @Component({
   selector: 'app-page-display',
   imports: [ContentfulRichText],
   providers: [ContentfulService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     @if (pageContentResource.asReadonly().isLoading()) {
       <div>Loading...</div>
@@ -14,7 +15,7 @@ import { ContentfulRichText } from './contentful-rich-text.component';
         <h1>{{ pageContentResource.asReadonly().value()?.fields?.pageTitle }}</h1>
         <ng-content select="before"></ng-content>
         <app-contentful-rich-text
-          [document]="pageContentResource.asReadonly().value()?.fields?.pageContent"
+          [document]="$safeNavigationMigration(pageContentResource.asReadonly().value()?.fields?.pageContent)"
         ></app-contentful-rich-text>
         <ng-content select="after"></ng-content>
         <ng-content></ng-content>

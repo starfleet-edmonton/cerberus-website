@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { MenuItem } from '@openng/optimus-ui/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -10,6 +10,7 @@ import { LayoutService } from '../services/layout.service';
   selector: 'app-topbar',
   standalone: true,
   imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<div class="layout-topbar">
     <div class="layout-topbar-logo-container">
       <button
