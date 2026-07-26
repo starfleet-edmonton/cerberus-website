@@ -1,7 +1,9 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-
+import { AvatarModule } from '@openng/optimus-ui/avatar';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '@openng/optimus-ui/api';
+import { MenuModule } from '@openng/optimus-ui/menu';
+
 import { AppMenuitem } from './app.menuitem';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -9,9 +11,13 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [AppMenuitem, RouterModule, CommonModule],
+  imports: [AppMenuitem, RouterModule, CommonModule, MenuModule, AvatarModule],
   changeDetection: ChangeDetectionStrategy.Eager,
-  template: `<ul class="layout-menu">
+  template: `
+    <!-- <ul class="layout-menu">
+      <p-menu [model]="model"></p-menu>
+    </ul> -->
+    <ul class="layout-menu">
       @for (item of model; track item; let i = $index) {
         @if (!item.separator) {
           <li app-menuitem [item]="item" [index]="i" [root]="true"></li>
@@ -21,79 +27,53 @@ import { AuthService } from '../../services/auth.service';
         }
       }
     </ul>
+    @let loggedIn = authService.loggedIn$ | async;
+    @let user = authService.user$ | async;
 
-    @if (!(authService.loggedIn$ | async)) {
-      <span (click)="doEmailLogin()">Email Login</span><br /><span (click)="doGoogleLogin()"
-        >Test Google</span
-      ><br />
-      <span (click)="sendResetPasswordEmail()">Send Reset Password Email</span>
-    } @else {
-      <pre>{{ authService.user$ | async | json }}</pre>
-    } `,
+    @if (loggedIn && user) {
+      @if (user.photoURL) {
+        <p-avatar
+          style="background-color: #dee9fc; color: #1a2551"
+          shape="circle"
+          image="{{ user.photoURL }}"
+        />
+      } @else {
+        <p-avatar
+          icon="pi pi-user"
+          style="background-color: #dee9fc; color: #1a2551"
+          shape="circle"
+        />
+      }
+      &nbsp; <span class="text-sm text-gray-500">{{ user.displayName ?? user.email }}</span>
+    }
+  `,
 })
 export class AppMenu {
   authService: AuthService = inject(AuthService);
 
   model: MenuItem[] = [];
+  loginMenuItem: MenuItem = {
+    label: 'Login',
+    icon: 'pi pi-fw pi-sign-in',
+    routerLink: ['/members/login'],
+    visible: true,
+  };
+  authEventsMenuItem: MenuItem = {
+    label: 'Events',
+    icon: 'pi pi-fw pi-calendar',
+    routerLink: ['/members/events'],
+    visible: false,
+  };
 
-  doEmailLogin() {
-    this.authService.loginWithEmailAndPassword('jonw@ggsoftwerks.com', '').subscribe({
-      next: () => {
-        // Handle successful login
-        debugger;
-      },
-      error: (error) => {
-        // Handle login error
-        debugger;
-      },
+  authMenuItems = [this.authEventsMenuItem];
+
+  x = this.authService.loggedIn$.subscribe((loggedIn) => {
+    this.loginMenuItem.visible = !loggedIn;
+    this.authMenuItems.forEach((item) => {
+      item.visible = loggedIn;
     });
-  }
+  });
 
-  doGoogleLogin() {
-    this.authService.loginFromGoogle().subscribe({
-      next: () => {
-        // Handle successful login
-        debugger;
-      },
-      error: (error) => {
-        // Handle login error
-        debugger;
-      },
-    });
-  }
-
-  sendResetPasswordEmail() {
-    // Implement password reset logic here
-    const email = 'jonw@ggsoftwerks.com';
-    this.authService.sendResetPasswordEmail(email).subscribe({
-      next: () => {
-        // Password reset email sent!
-        // ..
-        debugger;
-      },
-      error: (error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        debugger;
-      },
-    });
-  }
-
-  updateProfile() {
-    this.authService
-      .updateProfile('Jane Q. User', 'https://example.com/jane-q-user/profile.jpg')
-      .subscribe({
-        next: () => {
-          // Profile updated!
-          // ...
-        },
-        error: (error) => {
-          // An error occurred
-          // ...
-        },
-      });
-  }
   ngOnInit() {
     this.model = [
       {
@@ -150,44 +130,40 @@ export class AppMenu {
             icon: 'pi pi-fw pi-envelope',
             routerLink: ['/pages/contact-us'],
           },
-
-          {
-            label: 'Members',
-            icon: 'pi pi-fw pi-user',
-            items: [
-              {
-                label: 'Login',
-                icon: 'pi pi-fw pi-sign-in',
-                routerLink: ['/auth/login'],
-              },
-              //     {
-              //       label: 'Error',
-              //       icon: 'pi pi-fw pi-times-circle',
-              //       routerLink: ['/auth/error'],
-              //     },
-              //     {
-              //       label: 'Access Denied',
-              //       icon: 'pi pi-fw pi-lock',
-              //       routerLink: ['/auth/access'],
-              //     },
-            ],
-            //},
-            // {
-            //   label: 'Crud',
-            //   icon: 'pi pi-fw pi-pencil',
-            //   routerLink: ['/pages/crud'],
-            // },
-            // {
-            //   label: 'Not Found',
-            //   icon: 'pi pi-fw pi-exclamation-circle',
-            //   routerLink: ['/pages/notfound'],
-            // },
-            // {
-            //   label: 'Empty',
-            //   icon: 'pi pi-fw pi-circle-off',
-            //   routerLink: ['/pages/empty'],
-          },
         ],
+      },
+      {
+        label: 'Members',
+        icon: 'pi pi-fw pi-user',
+        items: [
+          this.loginMenuItem,
+          this.authEventsMenuItem,
+          //     {
+          //       label: 'Error',
+          //       icon: 'pi pi-fw pi-times-circle',
+          //       routerLink: ['/auth/error'],
+          //     },
+          //     {
+          //       label: 'Access Denied',
+          //       icon: 'pi pi-fw pi-lock',
+          //       routerLink: ['/auth/access'],
+          //     },
+        ],
+        //},
+        // {
+        //   label: 'Crud',
+        //   icon: 'pi pi-fw pi-pencil',
+        //   routerLink: ['/pages/crud'],
+        // },
+        // {
+        //   label: 'Not Found',
+        //   icon: 'pi pi-fw pi-exclamation-circle',
+        //   routerLink: ['/pages/notfound'],
+        // },
+        // {
+        //   label: 'Empty',
+        //   icon: 'pi pi-fw pi-circle-off',
+        //   routerLink: ['/pages/empty'],
       },
       // {
       //   label: 'Hierarchy',

@@ -1,0 +1,22 @@
+<p-fluid class="flex flex-col md:flex-row gap-8" ngProjectAs="before">
+  <div class="md:w-1/2">
+    <div class="card flex flex-col gap-4">
+      <input pInputText id="email" name="email" type="text" placeholder="Email:" />
+
+      <input pInputText id="password" name="password" type="password" placeholder="Password:" />
+
+      <button label="Login" name="login" type="submit" pButton></button>
+    </div>
+  </div>
+</p-fluid>
+
+<p>login works!</p>
+
+@if (!(authService.loggedIn$ | async)) {
+  <span (click)="doEmailLogin()">Email Login</span><br /><span (click)="doGoogleLogin()"
+    >Test Google</span
+  ><br />
+  <span (click)="sendResetPasswordEmail()">Send Reset Password Email</span>
+} @else {
+  <pre>{{ authService.user$ | async | json }}</pre>
+}
