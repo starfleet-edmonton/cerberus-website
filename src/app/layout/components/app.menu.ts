@@ -7,11 +7,12 @@ import { MenuModule } from '@openng/optimus-ui/menu';
 import { AppMenuitem } from './app.menuitem';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Gravatar } from './gravatar';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [AppMenuitem, RouterModule, CommonModule, MenuModule, AvatarModule],
+  imports: [AppMenuitem, RouterModule, CommonModule, MenuModule, AvatarModule, Gravatar],
   changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <!-- <ul class="layout-menu">
@@ -31,7 +32,12 @@ import { AuthService } from '../../services/auth.service';
     @let user = authService.user$ | async;
 
     @if (loggedIn && user) {
-      @if (user.photoURL) {
+      <app-gravatar
+        [email]="user.email"
+        [name]="user.displayName ?? user.email"
+        [size]="80"
+      ></app-gravatar>
+      <!-- @if (user.photoURL) {
         <p-avatar
           style="background-color: #dee9fc; color: #1a2551"
           shape="circle"
@@ -43,7 +49,7 @@ import { AuthService } from '../../services/auth.service';
           style="background-color: #dee9fc; color: #1a2551"
           shape="circle"
         />
-      }
+      } -->
       &nbsp; <span class="text-sm text-gray-500">{{ user.displayName ?? user.email }}</span>
     }
   `,
