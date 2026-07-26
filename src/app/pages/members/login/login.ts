@@ -31,8 +31,8 @@ import { TextareaModule } from '@openng/optimus-ui/textarea';
 export class Login {
   authService: AuthService = inject(AuthService);
 
-  doEmailLogin() {
-    this.authService.loginWithEmailAndPassword('jonw@ggsoftwerks.com', '').subscribe({
+  doEmailLogin(email: string, password: string) {
+    this.authService.loginWithEmailAndPassword(email, password).subscribe({
       next: () => {
         // Handle successful login
         debugger;
