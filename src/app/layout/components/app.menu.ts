@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MenuItem } from '@openng/optimus-ui/api';
 import { AppMenuitem } from './app.menuitem';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -21,13 +21,15 @@ import { AuthService } from '../services/auth.service';
         }
       }
     </ul>
-    <span (click)="doEmailLogin()">Test</span><br /><span (click)="doGoogleLogin()"
-      >Test Google</span
-    ><br />
-    <span (click)="sendResetPasswordEmail()">Send Reset Password Email</span>
 
-    <hr />
-    <pre>{{ authService.user$ | async | json }}</pre> `,
+    @if (!(authService.loggedIn$ | async)) {
+      <span (click)="doEmailLogin()">Email Login</span><br /><span (click)="doGoogleLogin()"
+        >Test Google</span
+      ><br />
+      <span (click)="sendResetPasswordEmail()">Send Reset Password Email</span>
+    } @else {
+      <pre>{{ authService.user$ | async | json }}</pre>
+    } `,
 })
 export class AppMenu {
   authService: AuthService = inject(AuthService);
@@ -149,42 +151,42 @@ export class AppMenu {
             routerLink: ['/pages/contact-us'],
           },
 
-          // {
-          //   label: 'Auth',
-          //   icon: 'pi pi-fw pi-user',
-          //   items: [
-          //     {
-          //       label: 'Login',
-          //       icon: 'pi pi-fw pi-sign-in',
-          //       routerLink: ['/auth/login'],
-          //     },
-          //     {
-          //       label: 'Error',
-          //       icon: 'pi pi-fw pi-times-circle',
-          //       routerLink: ['/auth/error'],
-          //     },
-          //     {
-          //       label: 'Access Denied',
-          //       icon: 'pi pi-fw pi-lock',
-          //       routerLink: ['/auth/access'],
-          //     },
-          //   ],
-          // },
-          // {
-          //   label: 'Crud',
-          //   icon: 'pi pi-fw pi-pencil',
-          //   routerLink: ['/pages/crud'],
-          // },
-          // {
-          //   label: 'Not Found',
-          //   icon: 'pi pi-fw pi-exclamation-circle',
-          //   routerLink: ['/pages/notfound'],
-          // },
-          // {
-          //   label: 'Empty',
-          //   icon: 'pi pi-fw pi-circle-off',
-          //   routerLink: ['/pages/empty'],
-          // },
+          {
+            label: 'Members',
+            icon: 'pi pi-fw pi-user',
+            items: [
+              {
+                label: 'Login',
+                icon: 'pi pi-fw pi-sign-in',
+                routerLink: ['/auth/login'],
+              },
+              //     {
+              //       label: 'Error',
+              //       icon: 'pi pi-fw pi-times-circle',
+              //       routerLink: ['/auth/error'],
+              //     },
+              //     {
+              //       label: 'Access Denied',
+              //       icon: 'pi pi-fw pi-lock',
+              //       routerLink: ['/auth/access'],
+              //     },
+            ],
+            //},
+            // {
+            //   label: 'Crud',
+            //   icon: 'pi pi-fw pi-pencil',
+            //   routerLink: ['/pages/crud'],
+            // },
+            // {
+            //   label: 'Not Found',
+            //   icon: 'pi pi-fw pi-exclamation-circle',
+            //   routerLink: ['/pages/notfound'],
+            // },
+            // {
+            //   label: 'Empty',
+            //   icon: 'pi pi-fw pi-circle-off',
+            //   routerLink: ['/pages/empty'],
+          },
         ],
       },
       // {

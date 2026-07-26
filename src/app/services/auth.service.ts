@@ -11,13 +11,17 @@ import {
   signOut,
 } from 'firebase/auth';
 import { Auth, user } from 'ngx-firebase';
-import { from, Observable } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   auth: FirebaseAuth = inject(Auth) as FirebaseAuth;
   user$ = user(this.auth as FirebaseAuth);
+  loggedIn$ = this.user$.pipe(
+    // Map the user object to a boolean indicating if the user is logged in
+    map((user) => !!user),
+  );
 
   loginWithEmailAndPassword(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.auth, email, password)
