@@ -1,43 +1,72 @@
 <p-fluid class="flex flex-col md:flex-row gap-8" ngProjectAs="before">
   <div class="md:w-1/2">
-    <div class="card flex flex-col gap-4">
-      <input pInputText #emailField id="email" name="email" type="text" placeholder="Email:" />
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">Login</p-tab>
+        <p-tab value="1">Forgot Password</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <div class="card flex flex-col gap-4">
+            <input
+              pInputText
+              #emailField
+              id="email"
+              name="email"
+              type="text"
+              placeholder="Email:"
+            />
 
-      <input
-        pInputText
-        #passwordField
-        id="password"
-        name="password"
-        type="password"
-        placeholder="Password:"
-      />
+            <input
+              pInputText
+              #passwordField
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password:"
+            />
 
-      <button
-        label="Login"
-        name="login"
-        type="button"
-        pButton
-        (click)="doEmailLogin(emailField.value, passwordField.value)"
-      ></button>
-      <button
-        label="Google Login"
-        name="googlelogin"
-        type="button"
-        pButton
-        (click)="doGoogleLogin()"
-      ></button>
-      <button
-        label="Reset Password"
-        name="resetpassword"
-        type="button"
-        pButton
-        (click)="sendResetPasswordEmail()"
-      ></button>
-    </div>
+            <button
+              label="Login"
+              name="login"
+              type="button"
+              pButton
+              (click)="doEmailLogin(emailField.value, passwordField.value)"
+            ></button>
+            <button
+              label="Google Login"
+              name="googlelogin"
+              type="button"
+              pButton
+              (click)="doGoogleLogin()"
+            ></button>
+          </div>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <div class="card flex flex-col gap-4">
+            <input
+              pInputText
+              #resetEmailField
+              id="resetEmail"
+              name="resetEmail"
+              type="text"
+              placeholder="Enter your email to reset password:"
+            />
+            <button
+              label="Send Reset Email"
+              name="sendResetEmail"
+              type="button"
+              pButton
+              (click)="sendResetPasswordEmail(resetEmailField.value)"
+            ></button>
+            @if (resetEmailMessage) {
+              <div class="text-green-500">
+                {{ resetEmailMessage }}
+              </div>
+            }
+          </div>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
   </div>
 </p-fluid>
-
-@if (!(authService.loggedIn$ | async)) {
-} @else {
-  <pre>{{ authService.user$ | async | json }}</pre>
-}

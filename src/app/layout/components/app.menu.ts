@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AvatarModule } from '@openng/optimus-ui/avatar';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from '@openng/optimus-ui/api';
 import { MenuModule } from '@openng/optimus-ui/menu';
 
@@ -56,6 +56,7 @@ import { Gravatar } from './gravatar';
 })
 export class AppMenu {
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   model: MenuItem[] = [];
   loginMenuItem: MenuItem = {
@@ -70,8 +71,24 @@ export class AppMenu {
     routerLink: ['/members/events'],
     visible: false,
   };
+  logoutMenuItem: MenuItem = {
+    label: 'Logout',
+    icon: 'pi pi-fw pi-sign-out',
+    command: () => {
+      this.authService.logout().subscribe({
+        next: () => {
+          console.log('Logged out successfully');
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('Error logging out:', err);
+        },
+      });
+    },
+    visible: false,
+  };
 
-  authMenuItems = [this.authEventsMenuItem];
+  authMenuItems = [this.authEventsMenuItem, this.logoutMenuItem];
 
   x = this.authService.loggedIn$.subscribe((loggedIn) => {
     this.loginMenuItem.visible = !loggedIn;
@@ -144,6 +161,7 @@ export class AppMenu {
         items: [
           this.loginMenuItem,
           this.authEventsMenuItem,
+          this.logoutMenuItem,
           //     {
           //       label: 'Error',
           //       icon: 'pi pi-fw pi-times-circle',
