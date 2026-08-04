@@ -6,3 +6,64 @@
 </pre>
 
 <hr />
+@if (events$ | async; as events) {
+  @for (event of events; track $index) {
+    <div>
+      Name: {{ event.name }} <br />
+      Description: {{ event.description }} <br />
+      Date and Time: {{ event.dateAndTime | date: 'medium' }} <br />
+      Address: {{ event.address }} <br />
+      @if (event.mapString) {
+        Map: <a href="{{ event.mapString }}" target="_blank">View on Google Maps</a> <br />
+      }
+
+      <add-to-calendar-button
+        [attr.name]="event.name"
+        options="'Apple','Google','iCal', 'Outlook.com', 'Yahoo', 'Microsoft365', 'MicrosoftTeams'"
+        [attr.location]="event.address"
+        [attr.startDate]="'2026-08-07'"
+        [attr.endDate]="'2026-08-07'"
+        [attr.startTime]="'10:15'"
+        [attr.endTime]="'23:30'"
+        timeZone="currentBrowser"
+        lightMode="system"
+        hideBranding="true"
+        size="1"
+      ></add-to-calendar-button>
+    </div>
+
+    <hr />
+  }
+}
+<!--
+        [endDate]="event.dateAndTime.getDate()"
+        [endTime]="event.dateAndTime.getHours() + ':' + event.dateAndTime.getMinutes()" -->
+<!--https://add-to-calendar-button.com/configuration-->
+<add-to-calendar-button
+  name="Title"
+  options="'Apple','Google','iCal', 'Outlook.com', 'Yahoo', 'Microsoft365', 'MicrosoftTeams'"
+  location="World Wide Web"
+  startDate="2026-08-07"
+  endDate="2026-08-07"
+  startTime="10:15"
+  endTime="23:30"
+  timeZone="currentBrowser"
+  buttonsList="true"
+  lightMode="system"
+  hideBranding="true"
+  size="1"
+></add-to-calendar-button>
+
+<add-to-calendar-button
+  name="Title"
+  options="'Apple','Google','iCal', 'Outlook.com', 'Yahoo', 'Microsoft365', 'MicrosoftTeams'"
+  location="World Wide Web"
+  startDate="2026-08-07"
+  endDate="2026-08-07"
+  startTime="10:15"
+  endTime="23:30"
+  timeZone="currentBrowser"
+  lightMode="system"
+  hideBranding="true"
+  size="1"
+></add-to-calendar-button>
