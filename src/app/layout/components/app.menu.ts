@@ -149,6 +149,11 @@ export class AppMenu {
             routerLink: ['/pages/events'],
           },
           {
+            label: 'Community Partners',
+            icon: 'pi pi-fw pi-users',
+            routerLink: ['/pages/partners'],
+          },
+          {
             label: 'Contact Us',
             icon: 'pi pi-fw pi-envelope',
             routerLink: ['/pages/contact-us'],
