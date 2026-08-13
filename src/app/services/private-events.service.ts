@@ -1,5 +1,14 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { doc, Firestore, collection, query, onSnapshot, where } from 'firebase/firestore';
+import {
+  doc,
+  Firestore,
+  collection,
+  query,
+  onSnapshot,
+  where,
+  setDoc,
+  addDoc,
+} from 'firebase/firestore';
 import { from, map, switchMap, Observable, BehaviorSubject } from 'rxjs';
 import { collectionSnapshots, docData } from 'ngx-firebase';
 import { PrivateEvent } from '../models/firestore.model';
@@ -40,5 +49,14 @@ export class PrivateEventService implements OnDestroy {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
+  }
+
+  public addEvent(event: PrivateEvent): Observable<any> {
+    return from(addDoc(collection(this.firestore, 'events'), event));
+  }
+
+  public updateEvent(eventId: string, event: Partial<PrivateEvent>): Observable<any> {
+    const eventDocRef = doc(this.firestore, 'events', eventId);
+    return from(setDoc(eventDocRef, event, { merge: true }));
   }
 }

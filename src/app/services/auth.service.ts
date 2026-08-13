@@ -2,33 +2,59 @@ import { inject, Injectable } from '@angular/core';
 import {
   getAuth,
   signInWithEmailAndPassword,
-  User,
   Auth as FirebaseAuth,
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
   updateProfile,
   signOut,
+  User,
+  UserCredential,
 } from 'firebase/auth';
+import { doc, Firestore, getDoc, setDoc } from 'firebase/firestore';
 import { Auth, user } from 'ngx-firebase';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, of, switchMap, tap } from 'rxjs';
+import { LocalUser } from '../models/firestore.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   auth: FirebaseAuth = inject(Auth) as FirebaseAuth;
+  firestore = inject(Firestore);
+  // firebaseUtilities: FirebaseUtilitiesService = inject(FirebaseUtilitiesService);
+
   user$ = user(this.auth as FirebaseAuth);
+  id: string = '';
+
   loggedIn$ = this.user$.pipe(
     // Map the user object to a boolean indicating if the user is logged in
+    tap((user: User | null) => {
+      if (user?.uid != null) {
+        this.id = user?.uid;
+      }
+    }),
     map((user) => !!user),
+  );
+
+  localUser$ = this.user$.pipe(
+    switchMap((user) => {
+      if (user?.uid != null) {
+        this.id = user?.uid;
+        const userDocRef = doc(this.firestore, `users/${user?.uid}`);
+        return from(getDoc(userDocRef).then((u) => u.data() as LocalUser));
+      } else {
+        return of(null);
+      }
+    }),
   );
 
   loginWithEmailAndPassword(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(this.auth, email, password)
-      .then(() => {
+      .then((result) => {
         // Signed in
         //this.user2 = userCredential.user;
         // ...
+        this._setUserData(result);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -49,6 +75,7 @@ export class AuthService {
         //this.user2 = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+        this._setUserData(result);
       })
       .catch((error) => {
         // Handle Errors here.
@@ -102,5 +129,21 @@ export class AuthService {
         // ...
       });
     return from(promise);
+  }
+
+  private _setUserData(auth: UserCredential): Promise<User | LocalUser> {
+    const user: LocalUser = {
+      id: auth.user.uid,
+      name: (auth.user.displayName || auth.user.email)!,
+      email: auth.user.email!,
+      emailVerified: auth.user.emailVerified,
+      // custom ones
+      platformId: auth.providerId,
+
+      //lastRoute: string;
+      //configId: string;
+    };
+    const userDocRef = doc(this.firestore, `users/${user.id}`);
+    return setDoc(userDocRef, user, { merge: true }).then(() => user);
   }
 }
