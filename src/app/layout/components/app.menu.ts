@@ -79,6 +79,11 @@ export class AppMenu {
             routerLink: ['/pages/partners'],
           },
           {
+            label: 'Gallery',
+            icon: 'pi pi-fw pi-images',
+            routerLink: ['/pages/gallery'],
+          },
+          {
             label: 'Contact Us',
             icon: 'pi pi-fw pi-envelope',
             routerLink: ['/pages/contact-us'],
